@@ -16,7 +16,7 @@ app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
 app.use("/api/inngest", serve({ client: inngest, functions }));
 
 app.get("/", (req, res) => {
-  res.send("hello World");
+  res.send("hello World 123");
 });
 
 const startServer = async () => {
