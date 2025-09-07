@@ -19,7 +19,9 @@ const UsersList = ({ activeChannel }) => {
       { limit: 20 }
     );
 
-    const usersOnly = response.users.filter((user) => !user.id.startsWith("recording-"));
+    const usersOnly = response.users.filter(
+      (user) => !user.id.startsWith("recording-")
+    );
 
     return usersOnly;
   }, [client]);
@@ -44,7 +46,10 @@ const UsersList = ({ activeChannel }) => {
 
     try {
       //  bc stream does not allow channelId to be longer than 64 chars
-      const channelId = [client.user.id, targetUser.id].sort().join("-").slice(0, 64);
+      const channelId = [client.user.id, targetUser.id]
+        .sort()
+        .join("-")
+        .slice(0, 64);
       const channel = client.channel("messaging", channelId, {
         members: [client.user.id, targetUser.id],
       });
@@ -62,14 +67,24 @@ const UsersList = ({ activeChannel }) => {
     }
   };
 
-  if (isLoading) return <div className="team-channel-list__message">Loading users...</div>;
-  if (isError) return <div className="team-channel-list__message">Failed to load users</div>;
-  if (!users.length) return <div className="team-channel-list__message">No other users found</div>;
+  if (isLoading)
+    return <div className="team-channel-list__message">Loading users...</div>;
+  if (isError)
+    return (
+      <div className="team-channel-list__message">Failed to load users</div>
+    );
+  if (!users.length)
+    return (
+      <div className="team-channel-list__message">No other users found</div>
+    );
 
   return (
     <div className="team-channel-list__users">
       {users.map((user) => {
-        const channelId = [client.user.id, user.id].sort().join("-").slice(0, 64);
+        const channelId = [client.user.id, user.id]
+          .sort()
+          .join("-")
+          .slice(0, 64);
         const channel = client.channel("messaging", channelId, {
           members: [client.user.id, user.id],
         });
@@ -81,7 +96,8 @@ const UsersList = ({ activeChannel }) => {
             key={user.id}
             onClick={() => startDirectMessage(user)}
             className={`str-chat__channel-preview-messenger  ${
-              isActive && "!bg-black/20 !hover:bg-black/20 border-l-8 border-purple-500 shadow-lg0"
+              isActive &&
+              "!bg-black/20 !hover:bg-black/20 border-l-8 border-purple-500 shadow-lg0"
             }`}
           >
             <div className="flex items-center gap-2 w-full">
@@ -102,7 +118,9 @@ const UsersList = ({ activeChannel }) => {
 
                 <CircleIcon
                   className={`w-2 h-2 absolute -bottom-0.5 -right-0.5 ${
-                    user.online ? "text-green-500 fill-green-500" : "text-gray-400 fill-gray-400"
+                    user.online
+                      ? "text-green-500 fill-green-500"
+                      : "text-gray-400 fill-gray-400"
                   }`}
                 />
               </div>
