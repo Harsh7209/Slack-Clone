@@ -1,4 +1,10 @@
-import { HashIcon, LockIcon, UsersIcon, PinIcon, VideoIcon } from "lucide-react";
+import {
+  HashIcon,
+  LockIcon,
+  UsersIcon,
+  PinIcon,
+  VideoIcon,
+} from "lucide-react";
 import { useChannelStateContext } from "stream-chat-react";
 import { useState } from "react";
 import { useUser } from "@clerk/clerk-react";
@@ -21,7 +27,8 @@ const CustomChannelHeader = () => {
     (member) => member.user.id !== user.id
   );
 
-  const isDM = channel.data?.member_count === 2 && channel.data?.id.includes("user_");
+  const isDM =
+    channel.data?.member_count === 2 && channel.data?.id.includes("user_");
 
   const handleShowPinned = async () => {
     const channelState = await channel.query();
@@ -57,7 +64,9 @@ const CustomChannelHeader = () => {
           )}
 
           <span className="font-medium text-[#1D1C1D]">
-            {isDM ? otherUser?.user?.name || otherUser?.user?.id : channel.data?.id}
+            {isDM
+              ? otherUser?.user?.name || otherUser?.user?.id
+              : channel.data?.id}
           </span>
         </div>
       </div>
@@ -80,12 +89,18 @@ const CustomChannelHeader = () => {
         </button>
 
         {channel.data?.private && (
-          <button className="btn btn-primary" onClick={() => setShowInvite(true)}>
+          <button
+            className="btn btn-primary"
+            onClick={() => setShowInvite(true)}
+          >
             Invite
           </button>
         )}
 
-        <button className="hover:bg-[#F8F8F8] p-1 rounded" onClick={handleShowPinned}>
+        <button
+          className="hover:bg-[#F8F8F8] p-1 rounded"
+          onClick={handleShowPinned}
+        >
           <PinIcon className="size-4 text-[#616061]" />
         </button>
       </div>
@@ -104,7 +119,9 @@ const CustomChannelHeader = () => {
         />
       )}
 
-      {showInvite && <InviteModal channel={channel} onClose={() => setShowInvite(false)} />}
+      {showInvite && (
+        <InviteModal channel={channel} onClose={() => setShowInvite(false)} />
+      )}
     </div>
   );
 };
