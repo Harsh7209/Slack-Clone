@@ -3,7 +3,13 @@ import { useSearchParams } from "react-router";
 import { useChatContext } from "stream-chat-react";
 import * as Sentry from "@sentry/react";
 import toast from "react-hot-toast";
-import { AlertCircleIcon, HashIcon, LockIcon, UsersIcon, XIcon } from "lucide-react";
+import {
+  AlertCircleIcon,
+  HashIcon,
+  LockIcon,
+  UsersIcon,
+  XIcon,
+} from "lucide-react";
 
 const CreateChannelModal = ({ onClose }) => {
   const [channelName, setChannelName] = useState("");
@@ -31,7 +37,9 @@ const CreateChannelModal = ({ onClose }) => {
           { limit: 100 }
         );
 
-        const usersOnly = response.users.filter((user) => !user.id.startsWith("recording-"));
+        const usersOnly = response.users.filter(
+          (user) => !user.id.startsWith("recording-")
+        );
 
         setUsers(usersOnly || []);
       } catch (error) {
@@ -48,15 +56,6 @@ const CreateChannelModal = ({ onClose }) => {
 
     fetchUsers();
   }, [client]);
-
-  // reset the form on open: this is not needed, we just deleted it later in the video
-  // useEffect(() => {
-  //   setChannelName("");
-  //   setDescription("");
-  //   setChannelType("public");
-  //   setError("");
-  //   setSelectedMembers([]);
-  // }, []);
 
   // auto-select all users for public channels
   useEffect(() => {
@@ -202,7 +201,9 @@ const CreateChannelModal = ({ onClose }) => {
                   <HashIcon className="size-4" />
                   <div>
                     <div className="radio-title">Public</div>
-                    <div className="radio-description">Anyone can join this channel</div>
+                    <div className="radio-description">
+                      Anyone can join this channel
+                    </div>
                   </div>
                 </div>
               </label>
@@ -218,7 +219,9 @@ const CreateChannelModal = ({ onClose }) => {
                   <LockIcon className="size-4" />
                   <div>
                     <div className="radio-title">Private</div>
-                    <div className="radio-description">Only invited members can join</div>
+                    <div className="radio-description">
+                      Only invited members can join
+                    </div>
                   </div>
                 </div>
               </label>
@@ -239,7 +242,9 @@ const CreateChannelModal = ({ onClose }) => {
                   <UsersIcon className="w-4 h-4" />
                   Select Everyone
                 </button>
-                <span className="selected-count">{selectedMembers.length} selected</span>
+                <span className="selected-count">
+                  {selectedMembers.length} selected
+                </span>
               </div>
 
               <div className="members-list">
@@ -264,10 +269,14 @@ const CreateChannelModal = ({ onClose }) => {
                         />
                       ) : (
                         <div className="member-avatar member-avatar-placeholder">
-                          <span>{(user.name || user.id).charAt(0).toUpperCase()}</span>
+                          <span>
+                            {(user.name || user.id).charAt(0).toUpperCase()}
+                          </span>
                         </div>
                       )}
-                      <span className="member-name">{user.name || user.id}</span>
+                      <span className="member-name">
+                        {user.name || user.id}
+                      </span>
                     </label>
                   ))
                 )}
@@ -290,7 +299,11 @@ const CreateChannelModal = ({ onClose }) => {
 
           {/* Actions */}
           <div className="create-channel-modal__actions">
-            <button type="button" onClick={onClose} className="btn btn-secondary">
+            <button
+              type="button"
+              onClick={onClose}
+              className="btn btn-secondary"
+            >
               Cancel
             </button>
             <button

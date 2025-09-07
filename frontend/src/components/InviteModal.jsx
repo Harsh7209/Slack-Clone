@@ -19,7 +19,11 @@ const InviteModal = ({ channel, onClose }) => {
 
       try {
         const members = Object.keys(channel.state.members);
-        const res = await client.queryUsers({ id: { $nin: members } }, { name: 1 }, { limit: 30 });
+        const res = await client.queryUsers(
+          { id: { $nin: members } },
+          { name: 1 },
+          { limit: 30 }
+        );
         setUsers(res.users);
       } catch (error) {
         console.log("Error fetching users", error);
@@ -74,7 +78,9 @@ const InviteModal = ({ channel, onClose }) => {
                 <label
                   key={user.id}
                   className={`flex items-center gap-4 p-3 rounded-lg cursor-pointer transition-all shadow-sm bg-white hover:bg-[#f5f3ff] border-2 ${
-                    isChecked ? "border-[#611f69] bg-[#f3e6fa]" : "border-gray-200"
+                    isChecked
+                      ? "border-[#611f69] bg-[#f3e6fa]"
+                      : "border-gray-200"
                   }`}
                 >
                   <input
@@ -82,8 +88,12 @@ const InviteModal = ({ channel, onClose }) => {
                     className="checkbox checbox-primay checkbox-sm accent-[#611f69]"
                     value={user.id}
                     onChange={(e) => {
-                      if (e.target.checked) setSelectedMembers([...selectedMembers, user.id]);
-                      else setSelectedMembers(selectedMembers.filter((id) => id !== user.id));
+                      if (e.target.checked)
+                        setSelectedMembers([...selectedMembers, user.id]);
+                      else
+                        setSelectedMembers(
+                          selectedMembers.filter((id) => id !== user.id)
+                        );
                     }}
                   />
 
@@ -108,7 +118,11 @@ const InviteModal = ({ channel, onClose }) => {
 
           {/* ACTIONS */}
           <div className="create-channel-modal__actions mt-4">
-            <button className="btn btn-secondary" onClick={onClose} disabled={isInviting}>
+            <button
+              className="btn btn-secondary"
+              onClick={onClose}
+              disabled={isInviting}
+            >
               Cancel
             </button>
             <button
